@@ -1,0 +1,9 @@
+const Store = require('../models/storeModel');
+const AppError = require('../utils/appError');
+const handlerFactory = require('../utils/handlerFactory');
+const catchAsync = require('../utils/catchAsync');
+exports.getStore = handlerFactory.getOne(Store);
+exports.createStore = handlerFactory.createOne(Store);
+exports.updateStore = handlerFactory.updateOne(Store);
+exports.deleteStore = handlerFactory.deleteOne(Store);
+exports.getAllStore = handlerFactory.getAll(Store);

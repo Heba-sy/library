@@ -1,0 +1,9 @@
+const Notification = require('../models/notificationModel');
+const AppError = require('../utils/appError');
+const handlerFactory = require('../utils/handlerFactory');
+const catchAsync = require('../utils/catchAsync');
+exports.getNotification = handlerFactory.getOne(Notification);
+exports.createNotification = handlerFactory.createOne(Notification);
+exports.updateNotification = handlerFactory.updateOne(Notification);
+exports.deleteNotification = handlerFactory.deleteOne(Notification);
+exports.getAllNotification = handlerFactory.getAll(Notification);

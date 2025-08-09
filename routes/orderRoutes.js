@@ -9,9 +9,13 @@ router.use(protect);
 router
   .route('/')
   .get(restrictTo(USER, ADMIN), orderController.getAllOrder)
-  .post(restrictTo(USER),addVarBody("userId","userId"), orderController.createOrder);
+  .post(
+    restrictTo(USER),
+    addVarBody('userId', 'userId'),
+    orderController.createOrder,
+  );
 router
- .route('/mien')
+  .route('/mien')
   .get(
     restrictTo(USER),
     addQuery('userId', 'userId'),

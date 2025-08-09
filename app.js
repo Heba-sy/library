@@ -74,6 +74,8 @@ app.use(
 //ضغط البيانات قبل ارسالها من اجل تسريع النقل
 app.use(compression());
 //R <dont remove this line>
+const notificationRouter = require('./routes/notificationRoutes');
+const storeRouter = require('./routes/storeRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const conactRouter = require('./routes/conactRoutes');
 const categoryRouter = require('./routes/categoryRoutes');
@@ -84,6 +86,8 @@ const userRouter = require('./routes/userRoutes');
 
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 //ROUTES <dont remove this line>
+app.use('/api/v1.0.0/notifications', notificationRouter);
+app.use('/api/v1.0.0/stores', storeRouter);
 app.use('/api/v1.0.0/reviews', reviewRouter);
 app.use('/api/v1.0.0/images', imageRouter);
 app.use('/api/v1.0.0/conacts', conactRouter);

@@ -1,4 +1,7 @@
 const { methodePayment } = require('../utils/enum');
+const User = require('./userModel');
+const Product = require('./productModel');
+const Notification = require('./notificationModel');
 const { statusOrder } = require('../utils/enum');
 const mongoose = require('mongoose');
 const orderSchema = new mongoose.Schema(
@@ -65,6 +68,26 @@ orderSchema.pre(/^find/, function (next) {
     path: 'cart.productId',
     select: '-_id',
   });
+  next();
+});
+
+orderSchema.post('save', function (doc, next) {
+  if (doc) {
+    doc.cart.forEach(async (item) => {
+      const product = await Product.findById(item.productId).populate({
+        path: 'storeId',
+      });
+      product.quantity -= item.amount;
+      await product.save();
+      if (product.quantity <= product.minQuntity) {
+        const admin = await User.findOne({ role: 'ADMIN' });
+        await Notification.create({
+          userId: admin._id,
+          message: `الطلب في المركز ${product.storeId.name} اصبح اقل من القيمة الدنية`,
+        });
+      }
+    });
+  }
   next();
 });
 

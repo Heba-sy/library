@@ -1,17 +1,17 @@
 /**
  * @swagger
  * tags:
- *   name: Products
- *   description: Product management and retrieval
+ *   name: Notifications
+ *   description: Notification management and retrieval
  */
 
 /**
  * @swagger
- * /products:
+ * /notifications:
  *   post:
- *     summary: Create a product
- *     description: ADMIN can create product.
- *     tags: [Products]
+ *     summary: Create a notification
+ *     description:  can create notification.
+ *     tags: [Notifications]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -19,7 +19,7 @@
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/createProduct'
+ *             $ref: '#/components/schemas/createNotification'
  *     responses:
  *       "201":
  *         description: Created
@@ -32,7 +32,7 @@
  *                   type: string
  *                   example: success
  *                 doc:
- *                     $ref: '#/components/schemas/Product'
+ *                     $ref: '#/components/schemas/Notification'
  *       "400":
  *         $ref: '#/components/responses/DuplicateEmail'
  *       "401":
@@ -41,9 +41,9 @@
  *         $ref: '#/components/responses/Forbidden'
  *
  *   get:
- *     summary: Get all products
- *     description: USER,ADMIN can retrieve all products.
- *     tags: [Products]
+ *     summary: Get all notifications
+ *     description: USER,ADMIN,EMP can retrieve all notifications.
+ *     tags: [Notifications]
  *     security:
  *       - Bearer: []
  *     parameters:
@@ -65,7 +65,7 @@
  *           type: integer
  *           minimum: 1
  *         default: 10
- *         description: Maximum number of products
+ *         description: Maximum number of notifications
  *       - in: query
  *         name: search
  *         schema:
@@ -100,7 +100,7 @@
  *                 doc:
  *                   type: array
  *                   items:
- *                     $ref: '#/components/schemas/Product'
+ *                     $ref: '#/components/schemas/Notification'
  *       "401":
  *         $ref: '#/components/responses/Unauthorized'
  *       "403":
@@ -109,11 +109,11 @@
 
 /**
  * @swagger
- * /products/{id}:
+ * /notifications/{id}:
  *   get:
- *     summary: Get a product
- *     description: USER,ADMIN can use this router.
- *     tags: [Products]
+ *     summary: Get a notification
+ *     description: USER,ADMIN,EMP can use this router.
+ *     tags: [Notifications]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -122,7 +122,7 @@
  *         required: true
  *         schema:
  *           type: string
- *         description: Product id
+ *         description: Notification id
  *     responses:
  *       "200":
  *         description: OK
@@ -135,7 +135,7 @@
  *                   type: string
  *                   example: success
  *                 doc:
- *                     $ref: '#/components/schemas/Product'
+ *                     $ref: '#/components/schemas/Notification'
  *       "401":
  *         $ref: '#/components/responses/Unauthorized'
  *       "403":
@@ -144,9 +144,9 @@
  *         $ref: '#/components/responses/NotFound'
  *
  *   patch:
- *     summary: Update a product
- *     description: ADMIN can use this router.
- *     tags: [Products]
+ *     summary: Update a notification
+ *     description:  can use this router.
+ *     tags: [Notifications]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -155,13 +155,13 @@
  *         required: true
  *         schema:
  *           type: string
- *         description: Product id
+ *         description: Notification id
  *     requestBody:
  *         required: true
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/updateProduct'
+ *               $ref: '#/components/schemas/updateNotification'
  *     responses:
  *       "200":
  *         description: OK
@@ -174,7 +174,7 @@
  *                   type: string
  *                   example: success
  *                 doc:
- *                     $ref: '#/components/schemas/Product'
+ *                     $ref: '#/components/schemas/Notification'
  *       "401":
  *         $ref: '#/components/responses/Unauthorized'
  *       "403":
@@ -183,9 +183,9 @@
  *         $ref: '#/components/responses/NotFound'
  *
  *   delete:
- *     summary: Delete a  product.
- *     description: ADMIN can use this router.
- *     tags: [Products]
+ *     summary: Delete a  notification.
+ *     description:  can use this router.
+ *     tags: [Notifications]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -194,7 +194,7 @@
  *         required: true
  *         schema:
  *           type: string
- *         description: Product id
+ *         description: Notification id
  *     responses:
  *       "200":
  *         description: OK
@@ -217,116 +217,56 @@
  *         $ref: '#/components/responses/NotFound'
  */
 
-exports.Product = {
+exports.Notification = {
   type: 'object',
   properties: {
     id: { type: 'string' },
     // property
-    minQuntity: { type: 'number' },
-    quantity: { type: 'number' },
-    store: { type: 'string' },
-    category: { type: 'string' },
-    image: { type: 'array', items: { type: 'string' } },
-    price: { type: 'number' },
-    description: { type: 'string' },
-    name: { type: 'string' },
+    user: { type: 'string' },
+    message: { type: 'string' },
   },
   example: {
     _id: '5ebac534954b54139806c112',
     // property example
-    minQuntity: 200,
+    userId: '673c40cd59e293827f79e398',
 
-    quantity: 600,
-
-    storeId: '673c40cd59e293827f79e398',
-
-    categoryId: '673c40cd59e293827f79e398',
-
-    image: 'https://example.com/1.jpg',
-
-    price: 10,
-
-    description: 'des',
-
-    name: 'book',
+    message: 'message',
 
     createdAt: '2024-11-24T16:35:04.438Z',
     updatedAt: '2024-11-24T16:35:04.438Z',
   },
 };
-exports.createProduct = {
+exports.createNotification = {
   type: 'object',
   properties: {
     // create property
-    minQuntity: { type: 'number' },
-    quantity: { type: 'number' },
-    store: { type: 'string' },
-    category: { type: 'string' },
-    image: { type: 'string' },
-    price: { type: 'number' },
-    description: { type: 'string' },
-    name: { type: 'string' },
+    user: { type: 'string' },
+    message: { type: 'string' },
   },
   example: {
     // create property example
-    minQuntity: 200,
+    userId: '673c40cd59e293827f79e398',
 
-    quantity: 600,
-
-    storeId: '673c40cd59e293827f79e398',
-
-    categoryId: '673c40cd59e293827f79e398',
-
-    image: 'https://example.com/1.jpg',
-
-    price: 10,
-
-    description: 'des',
-
-    name: 'book',
+    message: 'message',
   },
   required: [
     // required property
-    'minQuntity',
+    'user',
 
-    'quantity',
-
-    'store',
-
-    'price',
-
-    'description',
-
-    'name',
+    'message',
   ],
 };
-exports.updateProduct = {
+exports.updateNotification = {
   type: 'object',
   properties: {
     // update property
-    minQuntity: { type: 'number' },
-    quantity: { type: 'number' },
-    store: { type: 'string' },
-    category: { type: 'string' },
-    image: { type: 'string' },
-    price: { type: 'number' },
-    description: { type: 'string' },
-    name: { type: 'string' },
+    user: { type: 'string' },
+    message: { type: 'string' },
   },
   example: {
     // update property example
-    minQuntity: 200,
+    userId: '673c40cd59e293827f79e398',
 
-    quantity: 600,
-
-    storeId: '673c40cd59e293827f79e398',
-
-    categoryId: '673c40cd59e293827f79e398',
-    image: 'https://example.com/1.jpg',
-    price: 10,
-
-    description: 'des',
-
-    name: 'book',
+    message: 'message',
   },
 };

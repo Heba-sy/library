@@ -1,5 +1,11 @@
 const swaggerJsDoc = require('swagger-jsdoc');
 const {
+  Notification,
+  createNotification,
+  updateNotification,
+} = require('./routes/notificationSwagger');
+const { Store, createStore, updateStore } = require('./routes/storeSwagger');
+const {
   Review,
   createReview,
   updateReview,
@@ -48,6 +54,12 @@ const options = {
     ],
     components: {
       schemas: {
+        Notification,
+        createNotification,
+        updateNotification,
+        Store,
+        createStore,
+        updateStore,
         Review,
         createReview,
         updateReview,
