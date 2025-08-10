@@ -1,3 +1,4 @@
+const Review = require('./reviewModel');
 const mongoose = require('mongoose');
 const productSchema = new mongoose.Schema(
   {
@@ -42,6 +43,15 @@ const productSchema = new mongoose.Schema(
   { timestamps: true, versionKey: false },
 );
 // <creating-function-schema />
+productSchema.post('findOneAndDelete', async function (doc) {
+  if (doc) {
+    try {
+      await Review.deleteMany({ productId: doc._id });
+    } catch (error) {
+      return next(new AppError('error deleting reviewss', 500));
+    }
+  }
+});
 
 productSchema.pre(/^find/, function (next) {
   this.populate({

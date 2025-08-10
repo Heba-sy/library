@@ -222,6 +222,7 @@ exports.Review = {
   properties: {
     id: { type: 'string' },
     // property
+    product: { type: 'string' },
     message: { type: 'string' },
     rate: { type: 'number' },
     user: { type: 'string' },
@@ -229,6 +230,8 @@ exports.Review = {
   example: {
     _id: '5ebac534954b54139806c112',
     // property example
+    productId: '673c40cd59e293827f79e398',
+
     message: 'god job',
 
     rate: 5,
@@ -243,17 +246,22 @@ exports.createReview = {
   type: 'object',
   properties: {
     // create property
+    product: { type: 'string' },
     message: { type: 'string' },
     rate: { type: 'number' },
   },
   example: {
     // create property example
+    productId: '673c40cd59e293827f79e398',
+
     message: 'god job',
 
     rate: 5,
   },
   required: [
     // required property
+    'product',
+
     'message',
 
     'rate',
@@ -265,11 +273,14 @@ exports.updateReview = {
   type: 'object',
   properties: {
     // update property
+    product: { type: 'string' },
     message: { type: 'string' },
     rate: { type: 'number' },
   },
   example: {
     // update property example
+    productId: '673c40cd59e293827f79e398',
+
     message: 'god job',
 
     rate: 5,

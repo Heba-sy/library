@@ -14,6 +14,9 @@ const swaggerUI = require('swagger-ui-express');
 const swaggerSpec = require('./swagger/swagger');
 const AppError = require('./utils/appError');
 const errorGlobal = require('./controllers/errorController');
+
+//const adminReportRoutes = require ('./routes/adminReportRoutes')
+
 // Start express app
 const app = express();
 // 1) GLOBAL MIDDLEWARES
@@ -84,6 +87,8 @@ const productRouter = require('./routes/productRoutes');
 const imageRouter = require('./routes/imageRoutes');
 const userRouter = require('./routes/userRoutes');
 
+const adminReportRouter = require('./routes/adminReportRoutes')
+
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 //ROUTES <dont remove this line>
 app.use('/api/v1.0.0/notifications', notificationRouter);
@@ -95,6 +100,9 @@ app.use('/api/v1.0.0/categories', categoryRouter);
 app.use('/api/v1.0.0/orders', orderRouter);
 app.use('/api/v1.0.0/products', productRouter);
 app.use('/api/v1.0.0/users', userRouter);
+
+app.use('/api/v1.0.0/adminReports', adminReportRouter);
+
 //في حال طلب مورد غير موجود
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

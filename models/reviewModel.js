@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 const reviewSchema = new mongoose.Schema(
   {
     // <creating-property-schema />
+    productId: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Product',
+      required: [true, 'Please enter product'],
+    },
     message: {
       type: String,
       required: [true, 'Please enter message'],
@@ -21,6 +26,13 @@ const reviewSchema = new mongoose.Schema(
   { timestamps: true, versionKey: false },
 );
 // <creating-function-schema />
+reviewSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'productId',
+    select: '-_id',
+  });
+  next();
+});
 
 reviewSchema.pre(/^find/, function (next) {
   this.populate({
